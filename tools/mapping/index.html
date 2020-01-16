@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+<script src="dom-to-image.min.js"></script>
+<style>
+body
+{
+    font-family: Helvetica;
+    font-size: 13px;
+}
+
+.container
+{
+    width: 640px;
+    position: relative;
+}
+
+.labels
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.btn
+{
+    position: absolute;
+    height: 76px;
+    width: 76px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title
+{
+    position: absolute;
+    left: 20px;
+    top: 334px;
+    width: 618px;
+    height: 74px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+}
+
+#btnA { left: 342px; top: 193px; }
+#btnB { left: 342px; top: 107px; }
+#btnX { left: 412px; top: 65px; }
+#btnY { left: 492px; top: 65px; }
+#btnL { left: 412px; top: 150px; }
+#btnR { left: 492px; top: 150px; }
+
+.btn .btnContent,
+.title .titleContent
+{
+    margin: 0;
+    padding: 0;
+}
+
+.title span,
+.btn span
+{
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+button,
+img
+{
+    display: block;
+}
+
+</style>
+</head>
+<body>
+
+<div id="capture" class="container">
+
+<div class="labels" contenteditable>
+    <div class="btn" id="btnA"><div class="btnContent"><span>A</span></div></div>
+    <div class="btn" id="btnB"><div class="btnContent"><span>B</span></div></div>
+    <div class="btn" id="btnX"><div class="btnContent"><span>X</span></div></div>
+    <div class="btn" id="btnY"><div class="btnContent"><span>Y</span></div></div>
+    <div class="btn" id="btnL"><div class="btnContent"><span>L</span></div></div>
+    <div class="btn" id="btnR"><div class="btnContent"><span>R</span></div></div>
+    <div id="title" class="title"><div class="titleContent"><span>Title</span></div></div>
+</div>
+
+<svg viewBox="0 0 640 412" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/">
+    <g style="fill:none;stroke:black;stroke-width:0.5px;">
+      <rect x="12" y="12" width="616" height="388"/>
+      <circle cx="150" cy="185" r="42"/>
+      <g transform="matrix(1,0,0,1,380,145)">
+        <circle cx="0" cy="0" r="38"/>
+        <circle cx="0" cy="0" r="27"/>
+      </g>
+      <g transform="matrix(1,0,0,1,380,231)">
+        <circle cx="0" cy="0" r="38"/>
+        <circle cx="0" cy="0" r="27"/>
+      </g>
+      <g transform="matrix(1,0,0,1,450,103)">
+        <circle cx="0" cy="0" r="38"/>
+        <circle cx="0" cy="0" r="27"/>
+      </g>
+      <g transform="matrix(1,0,0,1,450,188)">
+        <circle cx="0" cy="0" r="38"/>
+        <circle cx="0" cy="0" r="27"/>
+      </g>
+      <g transform="matrix(1,0,0,1,530,103)">
+        <circle cx="0" cy="0" r="38"/>
+        <circle cx="0" cy="0" r="27"/>
+      </g>
+      <g transform="matrix(1,0,0,1,530,188)">
+        <circle cx="0" cy="0" r="38"/>
+        <circle cx="0" cy="0" r="27"/>
+      </g>
+    </g>
+</svg>
+
+</div>
+
+<button id="download">Download</button>
+
+<script>
+( function() {
+    document.getElementById('download').addEventListener( 'click', function() {
+        var node = document.getElementById('capture');
+        var title = document.getElementById('title').textContent;
+        console.log( title );
+
+        domtoimage.toPng( node )
+            .then( ( dataUrl ) => {
+                var link = document.createElement('a');
+                link.download = title + '_mapping.png';
+                link.href = dataUrl;
+                link.click();
+            } )
+            .catch( ( error ) => {
+                console.error( 'oops, something went wrong!', error );
+            } );
+    } );
+} )();
+</script>
+
+</body>
+</html>
